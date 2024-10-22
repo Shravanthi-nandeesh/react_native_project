@@ -2,6 +2,7 @@ import { Button, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, Text
 import React, { useState } from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import DropdownComponent from './Dropdown';
 
 const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,13 +41,18 @@ const Profile = () => {
         <View style={styles.inputContainer}>
           <Text style={styles.Profilelabel}>Name</Text>
           <TextInput placeholder='Name' style={styles.inputField} />
+          <Text style={styles.Profilelabel}>Designation</Text>
+          <DropdownComponent/>
           <Text style={styles.Profilelabel}>Email</Text>
           <TextInput placeholder='Email' style={styles.inputField} keyboardType="email-address" />
           <Text style={styles.Profilelabel}>Phone number</Text>
           <TextInput placeholder='Phone number' style={styles.inputField} keyboardType='phone-pad' />
           <Text style={styles.Profilelabel}>Password</Text>
           <TextInput placeholder='Password' style={styles.inputField} secureTextEntry />
+          
         </View>
+        
+    
         <View style={styles.buttonSection}>
           <View style={styles.button}>
             <Button title="Save" color="#2F3C7E" onPress={() => setModalVisible(true)} />
