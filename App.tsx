@@ -6,11 +6,13 @@ import './gesture-handler'
 import Profile from './components/Profile';
 import Settings from './components/Settings';
 import Home from './components/Home';
+import CustomDrawer from './components/CustomDrawer';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
 const MyDrawer: React.FC = () => (
   <Drawer.Navigator 
+  drawerContent={props=><CustomDrawer {...props}/>}
   screenOptions={{}}
   >
     <Drawer.Screen name="My profile" component={Profile} options={{ headerTitle: "My profile" }} />
