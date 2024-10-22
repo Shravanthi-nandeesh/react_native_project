@@ -44,3 +44,7 @@ npx expo install react-native-gesture-handler react-native-reanimated
 # React navigation documentaion  
 https://reactnavigation.org/docs/getting-started
 
+current output
+
+![image](https://github.com/user-attachments/assets/997e04a9-4351-4f34-90da-689d82d57ce5)
+
