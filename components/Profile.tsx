@@ -2,7 +2,6 @@ import { Button, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, Text
 import React, { useState } from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
 const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -25,8 +24,9 @@ const Profile = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.imageContainer}>
           <View style={styles.editImg}>
@@ -52,6 +52,7 @@ const Profile = () => {
             <Button title="Save" color="#2F3C7E" onPress={() => setModalVisible(true)} />
           </View>
         </View>
+     
       </ScrollView>
       <Modal
         animationType="slide"

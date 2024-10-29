@@ -7,6 +7,8 @@ import Profile from './components/Profile';
 import Settings from './components/Settings';
 import Home from './components/Home';
 import CustomDrawer from './components/CustomDrawer';
+import Login from './components/AccountStatus/Login';
+import SignUp from './components/AccountStatus/SignUp';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -29,10 +31,12 @@ export default function App() {
     />
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={"profile"} screenOptions={{
+      <Stack.Navigator initialRouteName={"Login"} screenOptions={{
         headerShown: false, // Hide headers globally for all screens in this navigator
       }}>
         {/* <Stack.Screen name="Home" component={Home} /> */}
+        <Stack.Screen name="Login" component={Login} options={{headerTitle:''}}/>
+        <Stack.Screen name='SignUp' component={SignUp} options={{headerTitle:''}}/>
         <Stack.Screen name="profile" component={MyDrawer} options={{ headerTitle: "profile" }} />
       </Stack.Navigator>
     </NavigationContainer>
