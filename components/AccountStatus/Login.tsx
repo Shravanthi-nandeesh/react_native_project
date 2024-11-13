@@ -16,7 +16,8 @@ const Login = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user, "user has logged in")
+                console.log(user, "user has logged in");
+                navigation.navigate("profile");
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -92,7 +93,7 @@ const Login = () => {
             {/* <ActivityIndicator size={'large'} color={'#006ffd'} /> */}
             <View style={styles.HeadingSection}>
                 <Text style={styles.loginHeading}>Login</Text>
-                <TouchableOpacity onPress={() => { alert("Login") }}>
+                <TouchableOpacity onPress={() => { setEmail("");setPassword("");setErrorAllowLogin({});navigation.navigate("SignUp"); }}>
                     <Text style={styles.signButton}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
@@ -124,17 +125,11 @@ const Login = () => {
                     {errorAllowLogin?.invalidCredential == true &&
                         <Text style={styles.inlineSignup}>
                             The email address you entered isn't connected to an account.
-                            <TouchableWithoutFeedback onPress={() => { navigation.navigate("SignUp"); }}>
+                            <TouchableWithoutFeedback onPress={() => {setEmail("");setPassword("");setErrorAllowLogin({}); navigation.navigate("SignUp"); }}>
                                 <Text style={styles.signupText}>Sign Up</Text>
                             </TouchableWithoutFeedback>
                         </Text>
                     }
-                    <Text style={styles.inlineSignup}>
-                        The email address you entered isn't connected to an account.
-                        <TouchableWithoutFeedback onPress={() => { navigation.navigate("SignUp"); }}>
-                            <Text style={styles.signupText}> Sign Up</Text>
-                        </TouchableWithoutFeedback>
-                    </Text>
                     <TouchableWithoutFeedback onPress={() => { handleSignIn() }} disabled={(Object.keys(errorAllowLogin).length == 0 && (email.length != 0 && password.length != 0)) ? false : true} >
                         <Text style={[styles.loginButton, (Object.keys(errorAllowLogin).length == 0 && (email.length != 0 && password.length != 0)) ? styles.active : styles.blur]}>Login</Text>
                     </TouchableWithoutFeedback>

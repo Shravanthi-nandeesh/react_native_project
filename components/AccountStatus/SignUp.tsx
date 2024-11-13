@@ -12,41 +12,36 @@ const SignUp = () => {
 
     const handleSignIn = () => {
         // auth
-        signInWithEmailAndPassword(auth, email, password)
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user, "user has logged in")
+                console.log(user, "user has logged in");
+                navigation.navigate("Login");
+
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                console.log(errorCode, "error code");
                 switch (errorCode) {
-                    case 'auth/invalid-email':
-                        console.log("The email address is not valid.");
-                        break;
-                    case 'auth/user-disabled':
-                        console.log("The user corresponding to the given email has been disabled.");
-                        break;
-                    case 'auth/user-not-found':
-                        console.log("No user found with this email address.");
-                        break;
-                    case 'auth/wrong-password':
-                        console.log("The password is invalid for the given email.");
-                        break;
-                    case 'auth/invalid-credential':
-                        console.log("The email address you entered isn't connected to an account.");
-                        setErrorAllowLogin({ ...errorAllowLogin, invalidCredential: true });
+                    case 'auth/email-already-in-use':
+                        console.log("The email address already in use.");
+                        setErrorAllowLogin({ ...errorAllowLogin, credientialAvailable: true });
                     default:
-                        console.log(errorMessage); 
+                        console.log(errorMessage);
                 }
+
             });
+
     }
 
     interface ErrorState {
         name?: string,
         email?: string;
         password?: string;
-        invalidCredential?: boolean
+        invalidCredential?: boolean,
+        credientialAvailable?: boolean
     }
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -99,7 +94,7 @@ const SignUp = () => {
             {/* <ActivityIndicator size={'large'} color={'#006ffd'} /> */}
             <View style={styles.HeadingSection}>
                 <Text style={styles.loginHeading}>Sign Up</Text>
-                <TouchableOpacity onPress={() => { alert("Login") }}>
+                <TouchableOpacity onPress={() => { navigation.navigate("Login"); }}>
                     <Text style={styles.signButton}>Login</Text>
                 </TouchableOpacity>
             </View>
@@ -137,21 +132,21 @@ const SignUp = () => {
                 </View>
                 {errorAllowLogin?.password && <Text style={styles.errorMessages}>{errorAllowLogin?.password}</Text>}
                 <View>
-                    {errorAllowLogin?.invalidCredential == true &&
+                    {errorAllowLogin?.credientialAvailable == true &&
                         <Text style={styles.inlineSignup}>
-                            The email address you entered isn't connected to an account.
-                            <TouchableWithoutFeedback onPress={() => { alert("Login") }}>
-                                <Text style={styles.signupText}>Sign Up</Text>
+                            The email address you entered is already available. Please
+                            <TouchableWithoutFeedback onPress={() => { navigation.navigate("Login"); }}>
+                                <Text style={styles.signupText}> Sign in</Text>
                             </TouchableWithoutFeedback>
                         </Text>
                     }
                     <TouchableWithoutFeedback onPress={() => { handleSignIn() }} disabled={(Object.keys(errorAllowLogin).length == 0 && (email.length != 0 && password.length != 0)) ? false : true} >
-                        <Text style={[styles.loginButton, (Object.keys(errorAllowLogin).length == 0 && (email.length != 0 && password.length != 0)) ? styles.active : styles.blur]}>Login</Text>
+                        <Text style={[styles.loginButton, (Object.keys(errorAllowLogin).length == 0 && (email.length != 0 && password.length != 0)) ? styles.active : styles.blur]}> Sign Up</Text>
                     </TouchableWithoutFeedback>
                     <Text style={styles.inlineSignup}>
                         Already a member?
-                        <TouchableWithoutFeedback onPress={() => { alert("Login") }}>
-                            <Text style={styles.forgotPasswordText}> Sign Up</Text>
+                        <TouchableWithoutFeedback onPress={() => { navigation.navigate("Login"); }}>
+                            <Text style={styles.forgotPasswordText}> Sign in</Text>
                         </TouchableWithoutFeedback>
                     </Text>
                 </View>
@@ -216,7 +211,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     passwordContainer: {
-        position: 'relative', 
+        position: 'relative',
     },
     eyeIcon: {
         position: 'absolute',

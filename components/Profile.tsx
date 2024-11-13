@@ -27,7 +27,7 @@ const Profile = () => {
       // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <View style={styles.editImg}>
             <Image source={require("../assets/profile_icon.png")} style={styles.profileImg} />
